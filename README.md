@@ -8,7 +8,7 @@ This repository demonstrates the end-to-end DevOps implementation of the **DevBo
 >
 > The original application source code (frontend and backend business logic) was **not developed by me**. It is based on the DevBoard application created by the original author.
 >
-> My contribution is focused entirely on the **DevOps, containerization, deployment, and infrastructure implementation**. All Docker, deployment, infrastructure, and automation work in this repository is my own.
+> My contribution is focused entirely on the **DevOps, containerization, deployment, infrastructure, and automation implementation**. All Docker, CI/CD, deployment, infrastructure, and automation work in this repository is my own.
 
 ---
 
@@ -25,12 +25,13 @@ Current progress includes:
 * PostgreSQL container deployment
 * Frontend, backend, and database containerization
 * Three-tier application deployment on AWS EC2
+* Docker Compose for multi-container application management
+* GitHub Actions Continuous Integration (CI)
+* GitHub Actions Continuous Deployment (CD)
 
 Future improvements include:
 
-* Nginx reverse proxy
-* GitHub Actions CI
-* GitHub Actions CD
+* Kubernetes deployment
 * Infrastructure as Code
 * Monitoring and observability
 
@@ -67,12 +68,17 @@ All containers communicate through a dedicated Docker network.
 ### DevOps
 
 * Docker
+* Docker Compose
 * Docker Networking
 * Multi-stage Dockerfiles
+* GitHub Actions
 * AWS EC2
 * Linux
 * Git
 * GitHub
+* Docker
+* Docker Compose
+* Docker Networking
 
 ---
 
@@ -101,7 +107,7 @@ All containers communicate through a dedicated Docker network.
 
 ## ✅ Phase 3 — Database Deployment
 
-* PostgreSQL container
+* PostgreSQL container deployment
 * Database initialization scripts
 * Persistent database configuration
 * Application successfully connected to PostgreSQL
@@ -112,9 +118,38 @@ All containers communicate through a dedicated Docker network.
 
 * Provisioned EC2 instance
 * Installed Docker
-* Built Docker images on EC2
-* Started frontend, backend, and PostgreSQL containers
-* Deployed complete three-tier application
+* Built and deployed application containers
+* Started frontend, backend, and PostgreSQL services
+* Successfully deployed the complete three-tier application
+
+---
+
+## ✅ Phase 5 — Docker Compose
+
+- Created Docker Compose configuration
+- Defined frontend, backend, and PostgreSQL services
+- Managed application networking with Docker Compose
+- Configured environment variables and persistent volumes
+- Started the complete application with a single command
+
+---
+
+## ✅ Phase 6 — CI/CD Automation
+
+### Continuous Integration (CI)
+
+* Configured GitHub Actions CI workflow
+* Automated frontend build and validation
+* Built Docker images for frontend and backend
+* Pushed versioned images to Docker Hub
+
+### Continuous Deployment (CD)
+
+* Configured GitHub Actions CD workflow
+* Used a self-hosted GitHub Actions runner on AWS EC2
+* Automatically pulled the latest Docker images
+* Deployed updated containers using Docker Compose
+* Automated application deployment after successful CI
 
 ---
 
@@ -122,6 +157,12 @@ All containers communicate through a dedicated Docker network.
 
 ```text
 .
+├── .github/
+│   └── workflows/
+|       ├── ci-cd.yml
+│       ├── ci.yml
+│       └── cd.yml
+│
 ├── frontend/
 │   ├── Dockerfile
 │   └── .dockerignore
@@ -133,6 +174,8 @@ All containers communicate through a dedicated Docker network.
 ├── init/
 │   └── postgres/
 │
+├── docker-compose.yml
+├── docker-compose.prod.yml
 └── README.md
 ```
 
@@ -140,15 +183,17 @@ All containers communicate through a dedicated Docker network.
 
 # Learning Goals
 
-This repository is intended to demonstrate practical DevOps skills including:
+This repository demonstrates practical DevOps skills including:
 
 * Docker image creation
-* Multi-stage builds
+* Multi-stage Docker builds
 * Container security
 * Docker networking
-* Linux deployment
+* GitHub Actions CI/CD
+* Linux server administration
 * AWS EC2 deployment
 * Production deployment workflow
+* Automated application delivery
 
 ---
 
@@ -159,10 +204,11 @@ This repository is intended to demonstrate practical DevOps skills including:
 * [x] Dockerize PostgreSQL
 * [x] Configure Docker networking
 * [x] Deploy three-tier application to AWS EC2
-* [ ] Configure Nginx reverse proxy
-* [ ] Add GitHub Actions CI
-* [ ] Add GitHub Actions CD
-* [ ] Infrastructure as Code
+* [x] Configure Docker Compose production
+* [x] Implement GitHub Actions CI
+* [x] Implement GitHub Actions CD
+* [x] Kubernetes deployment
+* [ ] Infrastructure as Code (Terraform)
 * [ ] Monitoring & Logging
 
 ---
@@ -171,4 +217,4 @@ This repository is intended to demonstrate practical DevOps skills including:
 
 The DevBoard application itself was originally developed by its respective author.
 
-This repository is maintained as a **DevOps implementation project** demonstrating deployment, containerization, infrastructure, and automation practices on top of the existing application.
+This repository is maintained as a **DevOps implementation project** demonstrating containerization, CI/CD automation, deployment, infrastructure, and production-oriented DevOps practices built on top of the original application.
