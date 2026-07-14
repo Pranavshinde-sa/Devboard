@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devboard-frontend-deployment
+  namespace: devboard
+  labels:
+    app: devboard-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devboard-frontend
+  template:
+    metadata:
+      labels:
+        app: devboard-frontend
+    spec:
+      containers:
+      - name: devboard-frontend
+        image: pranavshinde3/devboard_frontend:latest
+
+        ports:
+        - containerPort: 8000
+
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+
+
+
+
+
