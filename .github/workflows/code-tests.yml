@@ -1,4 +1,4 @@
-name: Code Quality 
+name: Code testing
 
 on:
     workflow_call:
@@ -7,46 +7,41 @@ on:
 jobs:
     frontend:
         runs-on: ubuntu-latest
-        
+
         steps:
             - name: Code Checkout
               uses: actions/checkout@v4
 
-            - name: Setup node.js
+            - name: Setup nodejs
               uses: actions/setup-node@v4
               with:
                 node-version: '20'
                 cache: npm
                 cache-dependency-path: frontend/package-lock.json
-                
+
             - name: Install Dependencies
               run: npm ci
               working-directory: frontend
 
-            - name: Code linting 
-              run: npm run lint
+            - name: Run Tests
+              run: npm run test
               working-directory: frontend
 
-    backend:
+    backend: 
         runs-on: ubuntu-latest
 
         steps:
             - name: Code Checkout
               uses: actions/checkout@v4
 
-            - name: Setup go
+            - name: Setup Go
               uses: actions/setup-go@v4
               with:
                 go-version-file: backend/go.mod
                 cache: true
                 cache-dependency-path: backend/go.sum
 
-            - name: Run go formatter
-              run: go fmt ./...
+            - name: Run Tests
+              run: go test
               working-directory: backend
 
-            - name: Run go vet
-              run: go vet ./...
-              working-directory: backend
-
-            
