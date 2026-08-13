@@ -1,0 +1,49 @@
+name: Docker Scan 
+
+on:
+    workflow_call:
+    workflow_dispatch:
+
+jobs:
+    docker-scan-frontend:
+        name: Frontend Docker Image Scan
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Code Checkout 
+              uses: actions/checkout@v4
+
+            - name: Docker Image Build
+              run: docker build -t devboard-frontend:${{ github.sha }} ./frontend
+
+            - name: Run Trivy vulnerability scanner
+              uses: aquasecurity/trivy-action@v0.36.0
+              with: 
+                image-ref: 'devboard-frontend:${{ github.sha }}'
+                format: 'table'
+                exit-code: '1'
+                ignore-unfixed: true
+                vuln-type: 'os,library'
+                severity: 'CRITICAL,HIGH'
+    
+    docker-scan-backend:
+        name: Backend Docker Image Scan
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Code Checkout 
+              uses: actions/checkout@v4
+
+            - name: Docker Image Build
+              run: docker build -t devboard-backend:${{ github.sha }} ./backend
+
+            - name: Run Trivy vulnerability scanner
+              uses: aquasecurity/trivy-action@v0.36.0
+              with: 
+                image-ref: 'devboard-backend:${{ github.sha }}'
+                format: 'table'
+                exit-code: '1'
+                ignore-unfixed: true
+                vuln-type: 'os,library'
+                severity: 'CRITICAL,HIGH'
+
