@@ -14,11 +14,12 @@ RUN npm run build
 
 # STAGE - 2
 
-FROM node:20-alpine
+FROM node:22-alpine
 
 WORKDIR /app
 
-RUN apk upgrade --no-cache
+RUN apk upgrade --no-cache && \
+    npm install -g npm@10.9.8
 
 COPY package*.json ./
 
