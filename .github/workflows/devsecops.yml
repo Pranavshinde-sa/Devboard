@@ -1,0 +1,23 @@
+name: Devsecops
+
+on:
+    push: 
+        branches:
+            - main
+    workflow_dispatch:
+
+jobs:
+    code-quality-check:
+        uses: ./.github/workflows/code-quality.yml
+
+    code-test:
+        uses: ./.github/workflows/code-tests.yml
+
+    secret-scanning:
+        uses: ./.github/workflows/secret-scanning.yml
+
+    dependency-scanning:
+        uses: ./.github/workflows/dependency-scanning.yml
+
+    docker-image-scanning:
+        uses: ./.github/workflows/docker-scanning.yml
